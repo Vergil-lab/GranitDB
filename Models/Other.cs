@@ -1,4 +1,3 @@
-// Models/Client.cs
 namespace StroiSnabApp.Models
 {
     public class Client
@@ -14,7 +13,6 @@ namespace StroiSnabApp.Models
     }
 }
 
-// Models/Category.cs
 namespace StroiSnabApp.Models
 {
     public class Category
@@ -26,7 +24,6 @@ namespace StroiSnabApp.Models
     }
 }
 
-// Models/Material.cs
 namespace StroiSnabApp.Models
 {
     public class Material
@@ -44,7 +41,6 @@ namespace StroiSnabApp.Models
     }
 }
 
-// Models/OrderStatus.cs
 namespace StroiSnabApp.Models
 {
     public class OrderStatus
@@ -57,7 +53,6 @@ namespace StroiSnabApp.Models
     }
 }
 
-// Models/OrderItem.cs
 namespace StroiSnabApp.Models
 {
     public class OrderItem

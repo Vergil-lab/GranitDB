@@ -1,11 +1,7 @@
-// Models/Order.cs
 using System;
 
 namespace StroiSnabApp.Models
 {
-    /// <summary>
-    /// Модель заявки на поставку строительных материалов.
-    /// </summary>
     public class Order
     {
         public int      OrderID         { get; set; }

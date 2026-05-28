@@ -1,4 +1,4 @@
-// Forms/MainForm.cs
+
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -9,13 +9,10 @@ using StroiSnabApp.Services;
 
 namespace StroiSnabApp.Forms
 {
-    /// <summary>
-    /// Главная форма: список заявок на поставку стройматериалов.
-    /// Плашки статистики · Фильтрация · Таблица · CRUD · Экспорт JSON
-    /// </summary>
+   
     public class MainForm : Form
     {
-        // ── Компоненты ──────────────────────────────────────────
+      
         private DataGridView dgvOrders;
         private TextBox      txtSearch;
         private ComboBox     cmbStatusFilter;
@@ -37,9 +34,7 @@ namespace StroiSnabApp.Forms
             LoadData();
         }
 
-        // ════════════════════════════════════════════════════════
-        //  ПОСТРОЕНИЕ ИНТЕРФЕЙСА
-        // ════════════════════════════════════════════════════════
+      
         private void InitializeUI()
         {
             Text          = "ЦентрТрансГранит — Учёт заявок на поставку стройматериалов";
@@ -49,7 +44,7 @@ namespace StroiSnabApp.Forms
             BackColor     = Color.FromArgb(245, 246, 250);
             Font          = new Font("Segoe UI", 9.5f);
 
-            // ── Шапка ───────────────────────────────────────────
+            
             var pnlHeader = new Panel
             {
                 Dock      = DockStyle.Top,
@@ -74,7 +69,6 @@ namespace StroiSnabApp.Forms
             };
             pnlHeader.Controls.AddRange(new Control[] { lblTitle, lblSubtitle });
 
-            // ── Плашки-счётчики ─────────────────────────────────
             pnlSummary = new Panel
             {
                 Dock      = DockStyle.Top,
@@ -90,7 +84,7 @@ namespace StroiSnabApp.Forms
             pnlSummary.Controls.AddRange(
                 new Control[] { lblTotal, lblNew, lblInProgress, lblDelivered, lblRevenue });
 
-            // ── Панель инструментов ─────────────────────────────
+            
             pnlToolbar = new Panel
             {
                 Dock      = DockStyle.Top,
@@ -99,7 +93,7 @@ namespace StroiSnabApp.Forms
                 Padding   = new Padding(10, 7, 10, 7)
             };
 
-            // Поле поиска с placeholder (.NET 4.8 — вручную)
+          
             txtSearch = new TextBox
             {
                 Text      = PLACEHOLDER,
@@ -153,7 +147,7 @@ namespace StroiSnabApp.Forms
             { txtSearch, lblFilter, cmbStatusFilter,
               btnAdd, btnEdit, btnItems, btnDelete, btnExport, btnRefresh });
 
-            // ── Таблица заявок ──────────────────────────────────
+          
             dgvOrders = new DataGridView
             {
                 Dock                  = DockStyle.Fill,
@@ -177,16 +171,14 @@ namespace StroiSnabApp.Forms
             dgvOrders.CellFormatting        += DgvOrders_CellFormatting;
             dgvOrders.DoubleClick           += (s, e) => BtnEdit_Click(s, e);
 
-            // ── Сборка формы ────────────────────────────────────
+           
             Controls.Add(dgvOrders);
             Controls.Add(pnlToolbar);
             Controls.Add(pnlSummary);
             Controls.Add(pnlHeader);
         }
 
-        // ════════════════════════════════════════════════════════
-        //  ЗАГРУЗКА ДАННЫХ
-        // ════════════════════════════════════════════════════════
+       
         private void LoadStatuses()
         {
             cmbStatusFilter.Items.Clear();
@@ -236,9 +228,7 @@ namespace StroiSnabApp.Forms
         private void InitializeComponent()
         {
             this.SuspendLayout();
-            // 
-            // MainForm
-            // 
+          
             this.ClientSize = new System.Drawing.Size(284, 261);
             this.Name = "MainForm";
             this.Load += new System.EventHandler(this.MainForm_Load);
@@ -267,9 +257,7 @@ namespace StroiSnabApp.Forms
             catch { }
         }
 
-        // ════════════════════════════════════════════════════════
-        //  ОБРАБОТЧИКИ КНОПОК
-        // ════════════════════════════════════════════════════════
+      
         private void BtnAdd_Click(object sender, EventArgs e)
         {
             using (var f = new OrderForm(_db))
@@ -291,7 +279,7 @@ namespace StroiSnabApp.Forms
             using (var f = new ItemsForm(_db, o))
             {
                 f.ShowDialog();
-                LoadData(); // пересчитать суммы
+                LoadData(); 
             }
         }
 
@@ -331,15 +319,13 @@ namespace StroiSnabApp.Forms
             }
         }
 
-        // ════════════════════════════════════════════════════════
-        //  ФОРМАТИРОВАНИЕ ЯЧЕЕК
-        // ════════════════════════════════════════════════════════
+       
         private void DgvOrders_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             if (e.RowIndex < 0 || e.RowIndex >= _currentOrders.Count) return;
             var o = _currentOrders[e.RowIndex];
 
-            // Столбец «Статус» — цвет из БД
+           
             if (dgvOrders.Columns[e.ColumnIndex].DataPropertyName == "StatusName")
             {
                 try
@@ -352,7 +338,6 @@ namespace StroiSnabApp.Forms
                 catch { }
             }
 
-            // Столбец «Сумма» — форматирование числа
             if (dgvOrders.Columns[e.ColumnIndex].DataPropertyName == "TotalAmount"
                 && e.Value is decimal amount)
             {
@@ -360,7 +345,7 @@ namespace StroiSnabApp.Forms
                 e.FormattingApplied = true;
             }
 
-            // Просрочена дата доставки (не «Доставлена» и не «Отменена»)
+           
             if (o.DeliveryDate.HasValue
                 && o.DeliveryDate.Value < DateTime.Today
                 && o.StatusID != 5 && o.StatusID != 6)
@@ -370,9 +355,7 @@ namespace StroiSnabApp.Forms
             }
         }
 
-        // ════════════════════════════════════════════════════════
-        //  ВСПОМОГАТЕЛЬНЫЕ
-        // ════════════════════════════════════════════════════════
+     
         private Order GetSelected()
         {
             if (dgvOrders.CurrentRow == null) return null;

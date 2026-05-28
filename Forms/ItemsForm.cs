@@ -1,4 +1,4 @@
-// Forms/ItemsForm.cs
+
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -8,9 +8,7 @@ using StroiSnabApp.Models;
 
 namespace StroiSnabApp.Forms
 {
-    /// <summary>
-    /// Форма просмотра и редактирования состава заявки (позиции материалов).
-    /// </summary>
+  
     public class ItemsForm : Form
     {
         private DataGridView   dgvItems;
@@ -44,7 +42,6 @@ namespace StroiSnabApp.Forms
             BackColor       = Color.White;
             Font            = new Font("Segoe UI", 9.5f);
 
-            // ── Шапка заявки ────────────────────────────────────
             lblOrderInfo = new Label
             {
                 Text = $"Клиент: {_order.ClientName}   |   Статус: {_order.StatusName}   |   Адрес: {_order.DeliveryAddress}",
@@ -53,7 +50,6 @@ namespace StroiSnabApp.Forms
                 Font = new Font("Segoe UI", 9f), TextAlign = ContentAlignment.MiddleLeft
             };
 
-            // ── Таблица позиций ──────────────────────────────────
             dgvItems = new DataGridView
             {
                 Left = 12, Top = 48, Width = 780, Height = 300,
@@ -72,7 +68,6 @@ namespace StroiSnabApp.Forms
             dgvItems.ColumnHeadersHeight = 30;
             dgvItems.RowTemplate.Height  = 28;
 
-            // Итоговая сумма
             lblTotal = new Label
             {
                 Left = 12, Top = 358, Width = 780, Height = 28,
@@ -80,7 +75,6 @@ namespace StroiSnabApp.Forms
                 ForeColor = Color.FromArgb(0, 120, 80), TextAlign = ContentAlignment.MiddleRight
             };
 
-            // ── Панель добавления позиции ────────────────────────
             var pnlAdd = new Panel
             {
                 Left = 12, Top = 394, Width = 780, Height = 78,
@@ -120,7 +114,6 @@ namespace StroiSnabApp.Forms
             };
             btnAddItem.Click += BtnAddItem_Click;
 
-            // ── Кнопки нижней панели ─────────────────────────────
             btnRemoveItem = new Button
             {
                 Text = "✕ Удалить позицию", Left = 12, Top = 486, Width = 170, Height = 30,
@@ -172,7 +165,6 @@ namespace StroiSnabApp.Forms
 
             dgvItems.DataSource = _items;
 
-            // Форматирование денежных столбцов
             dgvItems.CellFormatting += (s, e) =>
             {
                 if (e.RowIndex < 0) return;
@@ -181,7 +173,6 @@ namespace StroiSnabApp.Forms
                 { e.Value = d.ToString("N2"); e.FormattingApplied = true; }
             };
 
-            // Итог
             decimal total = 0;
             foreach (var item in _items) total += item.LineTotal;
             lblTotal.Text = $"Итого по заявке:  {total:N2} ₽";

@@ -1,4 +1,3 @@
-// Services/JsonExportService.cs
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -7,9 +6,6 @@ using StroiSnabApp.Models;
 
 namespace StroiSnabApp.Services
 {
-    /// <summary>
-    /// Экспорт заявок в JSON-файл (без внешних библиотек, .NET 4.8).
-    /// </summary>
     public class JsonExportService
     {
         public void ExportOrders(List<Order> orders, string filePath)

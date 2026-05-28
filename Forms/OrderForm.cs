@@ -1,4 +1,4 @@
-// Forms/OrderForm.cs
+
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -7,9 +7,7 @@ using StroiSnabApp.Models;
 
 namespace StroiSnabApp.Forms
 {
-    /// <summary>
-    /// Форма добавления / редактирования заявки на поставку.
-    /// </summary>
+   
     public class OrderForm : Form
     {
         private ComboBox       cmbClient, cmbStatus;
@@ -153,7 +151,7 @@ namespace StroiSnabApp.Forms
             catch (Exception ex) { Warn("Ошибка сохранения:\n" + ex.Message); }
         }
 
-        // ── Вспомогательные ─────────────────────────────────────
+       
         private void AddLbl(string text, int top) =>
             Controls.Add(new Label
             {
