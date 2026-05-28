@@ -1,4 +1,3 @@
-// Data/DatabaseHelper.cs
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -7,9 +6,6 @@ using StroiSnabApp.Models;
 
 namespace StroiSnabApp.Data
 {
-    /// <summary>
-    /// Все SQL-операции через ADO.NET (паттерн Repository).
-    /// </summary>
     public class DatabaseHelper
     {
         private readonly string _connStr =
@@ -18,13 +14,6 @@ namespace StroiSnabApp.Data
         private SqlConnection GetConnection() =>
             new SqlConnection(_connStr);
 
-        // ════════════════════════════════════════════════════════
-        //  ЗАЯВКИ
-        // ════════════════════════════════════════════════════════
-
-        /// <summary>
-        /// Получить заявки с фильтрами по статусу и тексту.
-        /// </summary>
         public List<Order> GetOrders(int? statusId = null, string search = null)
         {
             var list = new List<Order>();
@@ -67,9 +56,6 @@ namespace StroiSnabApp.Data
             return list;
         }
 
-        /// <summary>
-        /// Получить одну заявку по ID.
-        /// </summary>
         public Order GetOrderById(int orderId)
         {
             string sql = @"
@@ -93,9 +79,6 @@ namespace StroiSnabApp.Data
             }
         }
 
-        /// <summary>
-        /// Добавить новую заявку. Возвращает новый OrderID.
-        /// </summary>
         public int AddOrder(Order o)
         {
             string sql = @"
@@ -123,9 +106,6 @@ namespace StroiSnabApp.Data
             }
         }
 
-        /// <summary>
-        /// Обновить заявку.
-        /// </summary>
         public void UpdateOrder(Order o)
         {
             string sql = @"
@@ -147,9 +127,6 @@ namespace StroiSnabApp.Data
             }
         }
 
-        /// <summary>
-        /// Удалить заявку (позиции удалятся каскадно).
-        /// </summary>
         public void DeleteOrder(int orderId)
         {
             using (var conn = GetConnection())
@@ -162,13 +139,6 @@ namespace StroiSnabApp.Data
             }
         }
 
-        // ════════════════════════════════════════════════════════
-        //  ПОЗИЦИИ ЗАЯВКИ
-        // ════════════════════════════════════════════════════════
-
-        /// <summary>
-        /// Получить все позиции заявки с названиями материалов.
-        /// </summary>
         public List<OrderItem> GetOrderItems(int orderId)
         {
             var list = new List<OrderItem>();
@@ -202,9 +172,6 @@ namespace StroiSnabApp.Data
             return list;
         }
 
-        /// <summary>
-        /// Добавить позицию в заявку и пересчитать сумму.
-        /// </summary>
         public void AddOrderItem(OrderItem item)
         {
             string sql = @"
@@ -230,9 +197,6 @@ namespace StroiSnabApp.Data
             }
         }
 
-        /// <summary>
-        /// Удалить позицию из заявки и пересчитать сумму.
-        /// </summary>
         public void DeleteOrderItem(int itemId, int orderId)
         {
             string sql = @"
@@ -255,9 +219,6 @@ namespace StroiSnabApp.Data
             }
         }
 
-        // ════════════════════════════════════════════════════════
-        //  СПРАВОЧНИКИ
-        // ════════════════════════════════════════════════════════
 
         public List<Client> GetClients()
         {
@@ -334,9 +295,6 @@ namespace StroiSnabApp.Data
             return list;
         }
 
-        // ════════════════════════════════════════════════════════
-        //  СВОДНАЯ СТАТИСТИКА
-        // ════════════════════════════════════════════════════════
 
         public DataTable GetSummary()
         {
@@ -357,9 +315,6 @@ namespace StroiSnabApp.Data
             return dt;
         }
 
-        // ════════════════════════════════════════════════════════
-        //  ВСПОМОГАТЕЛЬНЫЕ
-        // ════════════════════════════════════════════════════════
 
         private Order MapOrder(SqlDataReader r) => new Order
         {

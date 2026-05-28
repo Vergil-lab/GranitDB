@@ -233,6 +233,24 @@ namespace StroiSnabApp.Forms
             dgvOrders.DataSource = orders;
         }
 
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // MainForm
+            // 
+            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Name = "MainForm";
+            this.Load += new System.EventHandler(this.MainForm_Load);
+            this.ResumeLayout(false);
+
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
         private void UpdateSummary()
         {
             try
